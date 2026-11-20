@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>Afet Eğitim Merkezi: Saha Tatbikatı</title>
+    <meta name="description" content="Tarayıcıda oynanan gerçekçi 3B afet eğitim simülasyonu: deprem, afet çantası, kimyasal sızıntı ve bina tahliyesi." />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+
+    <div id="hud" class="hidden">
+      <div id="ovDamage" class="ov"></div>
+      <div id="ovSmoke" class="ov"></div>
+      <div id="ovGas" class="ov"></div>
+      <div id="ovMask" class="ov"></div>
+      <div id="ovFade" class="ov"></div>
+
+      <div id="objPanel" class="panel">
+        <div id="locName">Ana Sergi Salonu</div>
+        <div id="objTitle">Görevler</div>
+        <ul id="objList"></ul>
+        <button id="btnTimelineEditor" class="hud-editor" type="button" aria-label="Tarihsel zaman tünelini düzenle">Zaman Tünelini Düzenle</button>
+      </div>
+
+      <div id="stats" class="panel">
+        <div class="stat"><span>Sağlık</span><div class="bar"><i id="hpBar"></i></div><b id="hpVal">100</b></div>
+        <div class="stat"><span>Tehlike</span><div class="bar danger"><i id="dangerBar"></i></div><b id="dangerVal">0</b></div>
+        <div class="row"><div><span>Puan</span><b id="scoreVal">0</b></div><div><span>Süre</span><b id="timeVal">00:00</b></div></div>
+      </div>
+
+      <div id="banner" class="hidden"></div>
+      <div id="crosshair"></div>
+      <div id="prompt" class="hidden"></div>
+      <div id="toasts"></div>
+      <div id="countdown" class="hidden"></div>
+
+      <div id="quakePanel" class="panel hidden">
+        <div class="ptitle">Sismik Hareket <span id="phaseTag">—</span></div>
+        <canvas id="seismo" width="300" height="90"></canvas>
+        <div class="chips"><span id="chipCok">ÇÖK</span><span id="chipKapan">KAPAN</span><span id="chipTutun">TUTUN</span></div>
+      </div>
+
+      <div id="bagPanel" class="panel hidden">
+        <div class="ptitle">Afet Çantası <b id="bagCount">0 / 12</b></div>
+        <ul id="bagList"></ul>
+      </div>
+
+      <div id="gasPanel" class="panel hidden">
+        <div class="ptitle">Gaz Dedektörü</div>
+        <div id="gasVal">0 <small>ppm</small></div>
+        <div id="gasState">Güvenli</div>
+      </div>
+
+      <div id="hints">
+        <span><kbd>WASD</kbd> Hareket</span><span><kbd>Fare</kbd> Bakış</span><span><kbd>E</kbd> Etkileşim</span><span><kbd>Shift</kbd> Koş</span>
+        <span><kbd>C</kbd> Çömel</span><span><kbd>T</kbd> Tutun</span><span><kbd>V</kbd> Kamera</span><span><kbd>1–5</kbd> Bölümler</span><span><kbd>Esc</kbd> Duraklat</span>
+      </div>
+      <div id="touchControls" aria-label="Dokunmatik oyun kumandaları">
+        <div id="lookPad" aria-label="Bakışı sürükleyerek değiştir"><span>BAKIŞ İÇİN SÜRÜKLE</span></div>
+        <div id="touchStick" aria-label="Hareket joystick'i"><div class="stick-ring"></div><div id="stickKnob"></div><span>HAREKET</span></div>
+        <div class="touch-actions">
+          <button type="button" data-code="KeyE" class="touch-interact">ETKİLEŞ</button>
+          <button type="button" data-code="KeyC">ÇÖK / KALK</button>
+          <button type="button" data-code="KeyT">TUTUN</button>
+          <button type="button" data-code="ShiftLeft">KOŞ</button>
+          <button type="button" data-code="Space">ZIPLA</button>
+          <button type="button" data-code="Escape">DURAKLAT</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screenLoading" class="screen">
+      <div class="card">
+        <div class="logo">AFET EĞİTİM MERKEZİ</div>
+        <div class="sub">Saha Tatbikatı yükleniyor…</div>
+        <div class="loadbar"><i id="loadFill"></i></div>
+        <div id="loadText">Dokular hazırlanıyor</div>
+      </div>
+    </div>
+
+    <div id="screenStart" class="screen hidden">
+      <div class="card wide">
+        <div class="logo">AFET EĞİTİM MERKEZİ</div>
+        <div class="sub">Saha Tatbikatı</div>
+        <p class="lead">Dört eğitim alanında gerçek afet senaryolarını yaşayın: <b>deprem</b>, <b>afet çantası</b>, <b>kimyasal sızıntı</b> ve <b>bina tahliyesi</b>. Doğru davranışlar puan kazandırır, hatalar sağlığınıza mal olur.</p>
+        <div class="grid">
+          <div><kbd>W A S D</kbd> hareket &nbsp; <kbd>Fare</kbd> bakış</div>
+          <div><kbd>Shift</kbd> koş &nbsp; <kbd>Boşluk</kbd> zıpla</div>
+          <div><kbd>E</kbd> etkileşim &nbsp; <kbd>C</kbd> çömel</div>
+          <div><kbd>T</kbd> basılı tut: tutun &nbsp; <kbd>V</kbd> kamera</div>
+          <div><kbd>1</kbd>–<kbd>5</kbd> bölümlere git &nbsp; <kbd>M</kbd> ses</div>
+          <div><kbd>Esc</kbd> duraklat / ayarlar</div>
+        </div>
+        <button id="btnStart" class="btn primary">Eğitime Başla</button>
+        <div class="note" id="startNote">Ses ve işaretçi kilidi için tıklayın.</div>
+      </div>
+    </div>
+
+    <div id="screenPause" class="screen hidden">
+      <div class="card">
+        <div class="logo small">DURAKLATILDI</div>
+        <label class="field">Grafik kalitesi
+          <select id="selQuality"><option value="low">Düşük</option><option value="medium">Orta</option><option value="high">Yüksek</option></select>
+        </label>
+        <label class="field">Fare hassasiyeti <input id="rngSens" type="range" min="0.4" max="2.5" step="0.1" value="1" /></label>
+        <label class="field">Ses seviyesi <input id="rngVol" type="range" min="0" max="1" step="0.05" value="0.8" /></label>
+        <button id="btnResume" class="btn primary">Devam Et</button>
+        <button id="btnRestart" class="btn">Eğitimi Baştan Başlat</button>
+      </div>
+    </div>
+
+    <div id="modal" class="screen clear hidden">
+      <div class="card wide" id="modalCard"></div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

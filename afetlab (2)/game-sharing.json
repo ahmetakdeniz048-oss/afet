@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 2,
+  "title": "Afet Eğitim Merkezi: Saha Tatbikatı",
+  "description": "Gerçekçi 3B afet eğitim simülasyonunda deprem güvenliğini öğrenin, afet çantası hazırlayın, tehlikeli madde riskini yönetin ve üç katlı binadan güvenle tahliye olun.",
+  "assets": {
+    "og": "assets/share/og.png",
+    "favicon": "assets/share/favicon.png"
+  }
+}

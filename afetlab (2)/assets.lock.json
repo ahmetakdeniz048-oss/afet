@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "groups": {
+    "models": {
+      "name": "Models",
+      "order": 10
+    },
+    "share": {
+      "name": "Share",
+      "order": 20
+    }
+  },
+  "bundles": {},
+  "assets": {
+    "assets/models/backpack.glb": {
+      "path": "/manus-storage/game/sha256/102b6909aa44f758a3b4feb0b77ecc1c4d02557facf9ad93ef5788052b964488.glb",
+      "sha256": "sha256:102b6909aa44f758a3b4feb0b77ecc1c4d02557facf9ad93ef5788052b964488",
+      "size": 1068760,
+      "assetType": "model",
+      "groupId": "models"
+    },
+    "assets/models/barrel.glb": {
+      "path": "/manus-storage/game/sha256/bf9afc88f65a6d95fbca2fe364e1a0dcfa17c2764a1fa6709bbc3d452ca7cb1c.glb",
+      "sha256": "sha256:bf9afc88f65a6d95fbca2fe364e1a0dcfa17c2764a1fa6709bbc3d452ca7cb1c",
+      "size": 751100,
+      "assetType": "model",
+      "groupId": "models"
+    },
+    "assets/models/extinguisher.glb": {
+      "path": "/manus-storage/game/sha256/e8f702de2bdd38fdd9024da1eb869a2c95bc435d3c0a0b19abcfd289a6efc912.glb",
+      "sha256": "sha256:e8f702de2bdd38fdd9024da1eb869a2c95bc435d3c0a0b19abcfd289a6efc912",
+      "size": 831320,
+      "assetType": "model",
+      "groupId": "models"
+    },
+    "assets/models/firstaid.glb": {
+      "path": "/manus-storage/game/sha256/7d0ba85dd6e6b936f36ddd6b5a385499b85c801c51b411964fe30ff4bc50e862.glb",
+      "sha256": "sha256:7d0ba85dd6e6b936f36ddd6b5a385499b85c801c51b411964fe30ff4bc50e862",
+      "size": 801816,
+      "assetType": "model",
+      "groupId": "models"
+    },
+    "assets/models/gasmask.glb": {
+      "path": "/manus-storage/game/sha256/cd4e8afd937a84b2b9ec4b17ae876613a17a7a357397dfc153b26138df0f87b9.glb",
+      "sha256": "sha256:cd4e8afd937a84b2b9ec4b17ae876613a17a7a357397dfc153b26138df0f87b9",
+      "size": 918908,
+      "assetType": "model",
+      "groupId": "models"
+    },
+    "assets/share/favicon.png": {
+      "path": "/manus-storage/game/sha256/65c5f0a77f9399a53c7f9f75d4626f7f97a7d7dad2d902cfa9c4e14ec5e0cf5d.png",
+      "sha256": "sha256:65c5f0a77f9399a53c7f9f75d4626f7f97a7d7dad2d902cfa9c4e14ec5e0cf5d",
+      "size": 14033,
+      "assetType": "image",
+      "groupId": "share"
+    },
+    "assets/share/og.png": {
+      "path": "/manus-storage/game/sha256/22e9b4eb8239cd39750ee2ac57b4b5a84aed643889e9f59c2091e8439f405bd0.png",
+      "sha256": "sha256:22e9b4eb8239cd39750ee2ac57b4b5a84aed643889e9f59c2091e8439f405bd0",
+      "size": 999916,
+      "assetType": "image",
+      "groupId": "share"
+    }
+  }
+}
